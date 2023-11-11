@@ -7,10 +7,10 @@ public class LaunchBrowser {
     public static void main(String[] args) {
         WebDriver webDriver = new ChromeDriver();
 
+        //open browser
         webDriver.get("https://sdetpro.com");
 
-        webDriver.close();
-
+        //quit browser
         webDriver.quit();
     }
 }
