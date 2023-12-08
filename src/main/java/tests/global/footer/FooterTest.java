@@ -17,10 +17,16 @@ public class FooterTest extends BaseTest {
 //        } finally {
 //            driver.quit();
 //        }
+//    @Test
+//    public void testHomePageFooter() {
+//        driver.get("https://demowebshop.tricentis.com/");
+//        FooterTestFlow footerTestFlow = new FooterTestFlow(driver);
+//        footerTestFlow.verifyFooterComponent();
+//    }
     @Test
-    public void testHomePageFooter() {
+    public void testCategoryPageFooter() {
         driver.get("https://demowebshop.tricentis.com/");
         FooterTestFlow footerTestFlow = new FooterTestFlow(driver);
-        footerTestFlow.verifyFooterComponent();
+        footerTestFlow.verifyProductCatFooterComponent();
     }
 }

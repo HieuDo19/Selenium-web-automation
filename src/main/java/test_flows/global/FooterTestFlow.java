@@ -1,10 +1,15 @@
 package test_flows.global;
 
+import models.components.global.TopMenuComponent;
 import models.components.global.footer.*;
 import models.pages.BasePage;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +32,29 @@ public class FooterTestFlow {
 //        verifyCustomerServiceColumn();
 //        verifyMyAccountColumn();
 //        verifyFollowUsColumn();
+    }
+
+    public void verifyProductCatFooterComponent() {
+        //Random pickup MainItem from TopMenuComponent
+        BasePage basePage = new BasePage(driver);
+        TopMenuComponent topMenuComponent = basePage.topMenuComponent();
+        List<TopMenuComponent.MainCatItem> mainCatsElem = topMenuComponent.mainItemsElem();
+        Assert.assertFalse(mainCatsElem.isEmpty(), "[ERR] There is no item on top menu");
+        int randomMainItemIndex = new SecureRandom().nextInt(mainCatsElem.size());
+        TopMenuComponent.MainCatItem randomMainItemElem = mainCatsElem.get(randomMainItemIndex);
+        String randomCatHref = randomMainItemElem.catItemLinkElem().getAttribute("href");
+        randomMainItemElem.catItemLinkElem().click();
+
+        //Make sure we are on the right page | Wait until navigation is done
+        try {
+            WebDriverWait wait = randomMainItemElem.componentWait();
+            wait.until(ExpectedConditions.urlContains(randomCatHref));
+        }catch (TimeoutException ignored) {
+            Assert.fail("[ERR] Target page is not matched");
+        }
+
+        //Call common verify method
+        verifyFooterComponent();
     }
 
     private void verifyInformationColumn(FooterColumnComponent informationColumnComponent) {
