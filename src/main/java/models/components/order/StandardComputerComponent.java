@@ -49,7 +49,7 @@ public class StandardComputerComponent extends ComputerEssentialComponent {
             }
         }
         if (fullStrOption == null) {
-            throw new RuntimeException("[ERR] The option \" + type + \" is not existing to select");
+            throw new RuntimeException("[ERR] The option " + type + " is not existing to select");
         }
         select.selectByVisibleText(fullStrOption);
         return fullStrOption;
