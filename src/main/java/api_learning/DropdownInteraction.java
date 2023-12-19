@@ -4,8 +4,7 @@ import driver.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import support.ui.SelectEX;
+import support.ui.SelectEx;
 
 public class DropdownInteraction {
     //Declare constants
@@ -19,7 +18,7 @@ public class DropdownInteraction {
         try {
             //Locate and select the dropdown element
             WebElement dropdownEle = driver.findElement(DROPDOWN_SEL);
-            SelectEX select = new SelectEX(dropdownEle);
+            SelectEx select = new SelectEx(dropdownEle);
 
             //by visible Text
             select.selectOption1();

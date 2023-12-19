@@ -3,11 +3,11 @@ package support.ui;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class SelectEX extends Select {
+public class SelectEx extends Select {
 
     private static final String OPTION_01 = "Option 1";
 
-    public SelectEX(WebElement element) {
+    public SelectEx(WebElement element) {
         super(element);
     }
 
