@@ -5,6 +5,7 @@ import models.components.ComponentCSSSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import support.ui.Scroll;
 
 @ComponentCSSSelector(value = ".header")
 public class HeaderComponent extends Component {
@@ -16,6 +17,7 @@ public class HeaderComponent extends Component {
     }
 
     public void clickOnShoppingCartLink() {
+        Scroll.toTop(driver);
         findElement(shoppingCartLinkSel).click();
     }
 }
