@@ -16,22 +16,29 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class BaseTest {
-    protected static WebDriver driver;
+    private final static List<DriverFactory> webdriverThreadPool = Collections.synchronizedList(new ArrayList<>());
+    private static ThreadLocal<DriverFactory> driverThread;
+
+    protected WebDriver getDriver() {
+        return driverThread.get().getDriver();
+    }
+
 
     @BeforeTest
     protected void initBrowserSession() {
-        driver = DriverFactory.getWebDriver();
+        driverThread = ThreadLocal.withInitial(() -> {
+            DriverFactory threadDriverFactory = new DriverFactory();
+            webdriverThreadPool.add(threadDriverFactory);
+            return threadDriverFactory;
+        });
     }
 
     @AfterTest(alwaysRun = true)
     public void closeBrowserSession() {
-        if (driver != null) {
-            driver.quit();
-        }
+        driverThread.get().closeBrowserSession();
     }
 
     @AfterMethod
@@ -59,6 +66,7 @@ public class BaseTest {
         String filename = methodName + "-" + y + "-" + m + "-" + d + "-" + hr + "-" + min + "-" + sec + ".png";
 
         //3. Take screenshot
+        WebDriver driver = driverThread.get().getDriver();
         File screenshotBase64Data = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             //4. Save

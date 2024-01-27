@@ -48,16 +48,19 @@ public class BillingAddressComponent extends Component {
     }
 
     public void selectCountry(String country) {
-        Select select = new Select(findElement(selectCountryDropdownSel));
-        select.selectByVisibleText(country);
-
+        selectCommon(findElement(selectCountryDropdownSel), country);
         wait.until(ExpectedConditions.invisibilityOf(findElement(loadingStateProgressBarSel)));
     }
 
     public void selectState(String state) {
-        Select select = new Select(findElement(selectStateDropdownSel));
-        select.selectByVisibleText(state);
+        selectCommon(findElement(selectStateDropdownSel), state);
     }
+
+    private void selectCommon(WebElement dropdownEle, String value) {
+        Select select = new Select(dropdownEle);
+        select.selectByVisibleText(value);
+    }
+
 
     public void inputCity(String city) {
         findElement(citySel).sendKeys(city);
@@ -77,5 +80,6 @@ public class BillingAddressComponent extends Component {
 
     public void clickOnContinueBtn() {
         findElement(continueBtnSel).click();
+        wait.until(ExpectedConditions.invisibilityOf(findElement(continueBtnSel)));
     }
 }
