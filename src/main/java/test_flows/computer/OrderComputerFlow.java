@@ -198,10 +198,12 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
 
             Calendar calendar = new GregorianCalendar();
 
-//            paymentInformationComponent.inputExpireMonth(String.valueOf(calendar.get(Calendar.MONTH) + 1));
-            paymentInformationComponent.inputExpireMonth("11");
-//            paymentInformationComponent.inputExpireYear(String.valueOf(calendar.get(Calendar.YEAR) + 1));
-            paymentInformationComponent.inputExpireYear("2026");
+            int expiredMonthNum = calendar.get(Calendar.MONTH) + 1;
+            String expiredMonthStr = expiredMonthNum < 10 ? "0" + expiredMonthNum : String.valueOf(expiredMonthNum);
+            paymentInformationComponent.inputExpireMonth(expiredMonthStr);
+//            paymentInformationComponent.inputExpireMonth("11");
+            paymentInformationComponent.inputExpireYear(String.valueOf(calendar.get(Calendar.YEAR) + 1));
+//            paymentInformationComponent.inputExpireYear("2026");
             paymentInformationComponent.inputCardCode("123");
             paymentInformationComponent.clickOnContinueBtn();
         } else if (this.paymentMethod.equals(PaymentMethod.COD)) {
